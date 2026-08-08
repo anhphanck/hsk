@@ -1688,6 +1688,18 @@
     let advancing = false;
     let completedWords = new Set();
 
+    function toHalfWidth(str) {
+      if (!str) return "";
+      return str
+        .replace(/[\uFF01-\uFF5E]/g, (ch) => String.fromCharCode(ch.charCodeAt(0) - 0xEE00))
+        .replace(/\u3000/g, " ");
+    }
+
+    function cleanHanzi(str) {
+      if (!str) return "";
+      return str.replace(/[\s\u3000，。！？、；："'"'·|’'\-]/g, "").trim();
+    }
+
     function stripTones(value) {
       return value
         .split("")
@@ -1697,8 +1709,8 @@
 
     function normalizePinyin(value) {
       if (!value) return "";
-      let text = value.trim().toLowerCase();
-      text = text.replace(/[，。！？、；："'"'·|]/g, "");
+      let text = toHalfWidth(value).trim().toLowerCase();
+      text = text.replace(/[，。！？、；："'"'·|’'\-]/g, "");
       text = text.replace(/\s+/g, "");
       text = stripTones(text);
       text = text.replace(/[^a-z0-9]/g, "");
@@ -1723,7 +1735,10 @@
       const raw = word.pinyin || "";
       raw.split(/[|/]/).forEach((part) => {
         const cleaned = normalizePinyin(part);
-        if (cleaned) answers.add(cleaned);
+        if (cleaned) {
+          answers.add(cleaned);
+          answers.add(cleaned.replace(/[0-9]/g, ""));
+        }
       });
       return answers;
     }
@@ -1942,13 +1957,23 @@
       const word = getCurrentWord();
       if (!word || advancing) return;
 
-      const input = el.pinyinInput.value.trim();
-      if (!input) return;
+      const rawInput = el.pinyinInput.value.trim();
+      if (!rawInput) return;
 
+      const input = toHalfWidth(rawInput);
+
+      // 1. Check if user typed Hanzi directly using Chinese keyboard / IME
+      if (cleanHanzi(input) === cleanHanzi(word.word)) {
+        markCorrect();
+        return;
+      }
+
+      // 2. Check Pinyin match (with or without tones, numbers, or spaces)
       const normalizedInput = normalizePinyin(input);
+      const normalizedNoDigits = normalizedInput.replace(/[0-9]/g, "");
       const answers = acceptedAnswers(word);
 
-      if (answers.has(normalizedInput)) {
+      if (answers.has(normalizedInput) || answers.has(normalizedNoDigits)) {
         markCorrect();
         return;
       }
