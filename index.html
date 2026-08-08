@@ -1382,6 +1382,239 @@
       0%, 100% { transform: scale(1); }
       50% { transform: scale(1.4); }
     }
+
+    /* ===== NOTEBOOK MODAL ===== */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 14, 20, 0.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 9900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .modal-overlay.show {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .notebook-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      width: min(560px, 100%);
+      max-height: 88vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+      overflow: hidden;
+    }
+
+    .notebook-header {
+      padding: 18px 22px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--surface-2);
+    }
+
+    .notebook-header h2 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .notebook-body {
+      padding: 20px 22px;
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    .add-note-form {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 20px;
+    }
+
+    .add-note-form h3 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #93c5fd;
+      margin-bottom: 12px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .form-input {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.88rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-input:focus {
+      border-color: var(--accent);
+    }
+
+    .form-input.full {
+      grid-column: span 2;
+    }
+
+    .btn-add-note {
+      width: 100%;
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 11px;
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.12s, background 0.2s;
+    }
+
+    .btn-add-note:hover {
+      background: linear-gradient(135deg, #34d399, #10b981);
+    }
+
+    .btn-add-note:active {
+      transform: scale(0.98);
+    }
+
+    .note-list-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--muted);
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .note-item {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px 16px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      transition: border-color 0.2s;
+    }
+
+    .note-item:hover {
+      border-color: rgba(59, 130, 246, 0.4);
+    }
+
+    .note-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .note-word {
+      font-family: "Noto Sans SC", sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .note-pinyin {
+      font-size: 0.85rem;
+      color: #93c5fd;
+      font-weight: 600;
+    }
+
+    .note-meaning {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .note-text {
+      font-size: 0.78rem;
+      color: #cbd5e1;
+      font-style: italic;
+      margin-top: 4px;
+      background: rgba(255,255,255,0.04);
+      padding: 4px 8px;
+      border-radius: 6px;
+    }
+
+    .note-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .btn-note-action {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      border-radius: 8px;
+      width: 34px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .btn-note-action:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .btn-note-action.delete:hover {
+      background: rgba(239, 68, 68, 0.15);
+      color: #fca5a5;
+      border-color: rgba(239, 68, 68, 0.3);
+    }
+
+    .btn-practice-custom {
+      background: linear-gradient(135deg, var(--accent), #2563eb);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 8px 14px;
+      font-family: inherit;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.12s;
+    }
+
+    .btn-practice-custom:hover {
+      transform: translateY(-1px);
+    }
   </style>
 </head>
 
@@ -1397,6 +1630,7 @@
         <button class="btn-review hidden" id="reviewBtn" type="button">
           🔖 Ôn lại <span class="review-count" id="reviewCount">0</span>
         </button>
+        <button class="btn-list" id="openNotebookBtn" type="button">📝 Sổ tay</button>
         <button class="btn-list" id="openListBtn" type="button">Danh sách</button>
         <div class="badge" id="totalBadge">0 từ</div>
         <div class="user-avatar" id="userAvatar" title="Tài khoản — bấm để đăng xuất">
@@ -1404,6 +1638,35 @@
         </div>
       </div>
     </header>
+
+    <!-- Notebook Modal -->
+    <div class="modal-overlay" id="notebookModal">
+      <div class="notebook-card">
+        <div class="notebook-header">
+          <h2>📝 Sổ tay từ vựng của bạn</h2>
+          <button class="btn-close" id="closeNotebookBtn" type="button" aria-label="Đóng">✕</button>
+        </div>
+        <div class="notebook-body">
+          <form class="add-note-form" id="addNoteForm">
+            <h3>＋ Thêm từ mới ngoài HSK vào sổ tay</h3>
+            <div class="form-grid">
+              <input type="text" class="form-input" id="noteHanzi" placeholder="Chữ Hán (ví dụ: 学习)" required autocomplete="off">
+              <input type="text" class="form-input" id="notePinyin" placeholder="Pinyin (ví dụ: xuéxí)" autocomplete="off">
+              <input type="text" class="form-input full" id="noteMeaning" placeholder="Nghĩa tiếng Việt (ví dụ: Học tập)" autocomplete="off">
+              <input type="text" class="form-input full" id="noteExample" placeholder="Ghi chú / Ví dụ (ví dụ: 我喜欢学习中文。)" autocomplete="off">
+            </div>
+            <button class="btn-add-note" type="submit">＋ Lưu vào sổ tay</button>
+          </form>
+
+          <div class="note-list-title">
+            <span>DANH SÁCH TỪ ĐÃ LƯU (<span id="notebookCount">0</span>)</span>
+            <button class="btn-practice-custom" id="btnPracticeCustom" type="button" style="display:none;">🎮 Luyện gõ từ trong sổ tay</button>
+          </div>
+
+          <div id="notebookList"></div>
+        </div>
+      </div>
+    </div>
 
     <!-- Login Overlay -->
     <div class="login-overlay" id="loginOverlay">
@@ -1433,6 +1696,7 @@
       <button class="level-btn" data-level="4" id="levelBtn4">HSK 4</button>
       <button class="level-btn" data-level="5" id="levelBtn5">HSK 5</button>
       <button class="level-btn" data-level="6" id="levelBtn6">HSK 6</button>
+      <button class="level-btn" data-level="custom" id="levelBtnCustom">📝 Sổ tay (<span id="customCount">0</span>)</button>
       <button class="level-btn" data-level="all" id="levelBtnAll">
         <span class="rainbow-text">✦ Tất cả</span>
       </button>
@@ -1819,6 +2083,98 @@
     }
 
     loadReviewMap();
+
+    // ===== PERSONAL VOCAB NOTEBOOK =====
+    let customNotes = [];
+
+    function loadCustomNotes() {
+      try {
+        const saved = localStorage.getItem("hsk_custom_notes");
+        if (saved) {
+          customNotes = JSON.parse(saved);
+        }
+      } catch(e) { customNotes = []; }
+      updateCustomCount();
+    }
+
+    function saveCustomNotes() {
+      try {
+        localStorage.setItem("hsk_custom_notes", JSON.stringify(customNotes));
+      } catch(e) {}
+      updateCustomCount();
+      if (window._saveToCloud) {
+        clearTimeout(window._cloudSyncTimer);
+        window._cloudSyncTimer = setTimeout(window._saveToCloud, 1500);
+      }
+    }
+
+    function updateCustomCount() {
+      const count = customNotes.length;
+      const countEl = document.getElementById("customCount");
+      const nbCountEl = document.getElementById("notebookCount");
+      const btnPractice = document.getElementById("btnPracticeCustom");
+      if (countEl) countEl.textContent = count;
+      if (nbCountEl) nbCountEl.textContent = count;
+      if (btnPractice) btnPractice.style.display = count > 0 ? "" : "none";
+    }
+
+    function renderNotebookList() {
+      const container = document.getElementById("notebookList");
+      if (!container) return;
+      container.innerHTML = "";
+
+      if (customNotes.length === 0) {
+        container.innerHTML = `
+          <div style="text-align:center;padding:30px;color:var(--muted);font-size:0.9rem;">
+            Chưa có từ vựng nào trong sổ tay.<br>Hãy điền từ mới ở biểu mẫu trên để thêm!
+          </div>
+        `;
+        return;
+      }
+
+      customNotes.forEach((item, index) => {
+        const div = document.createElement("div");
+        div.className = "note-item";
+        const meaningStr = (item.meanings && item.meanings.length) ? item.meanings.join(" · ") : "";
+        const exampleStr = (item.examples && item.examples.length && item.examples[0].sentence) ? item.examples[0].sentence : "";
+
+        div.innerHTML = `
+          <div class="note-info">
+            <div class="note-word">${escapeHtml(item.word)}</div>
+            ${item.pinyin ? `<div class="note-pinyin">${escapeHtml(item.pinyin)}</div>` : ''}
+            ${meaningStr ? `<div class="note-meaning">${escapeHtml(meaningStr)}</div>` : ''}
+            ${exampleStr ? `<div class="note-text">💬 ${escapeHtml(exampleStr)}</div>` : ''}
+          </div>
+          <div class="note-actions">
+            <button class="btn-note-action speak" title="Nghe phát âm" type="button">🔊</button>
+            <button class="btn-note-action delete" title="Xóa" type="button">🗑️</button>
+          </div>
+        `;
+
+        div.querySelector(".speak").onclick = () => speakWord(item.word);
+        div.querySelector(".delete").onclick = () => {
+          if (confirm(`Xóa từ "${item.word}" khỏi sổ tay?`)) {
+            customNotes.splice(index, 1);
+            saveCustomNotes();
+            renderNotebookList();
+            if (currentLevel === "custom") setLevel("custom");
+          }
+        };
+
+        container.appendChild(div);
+      });
+    }
+
+    function openNotebookModal() {
+      renderNotebookList();
+      document.getElementById("notebookModal").classList.add("show");
+    }
+
+    function closeNotebookModal() {
+      document.getElementById("notebookModal").classList.remove("show");
+    }
+
+    loadCustomNotes();
     let currentIndex = 0;
     let advancing = false;
     let completedWords = new Set();
@@ -2158,6 +2514,7 @@
         "4": "Luyện gõ Pinyin HSK 4",
         "5": "Luyện gõ Pinyin HSK 5",
         "6": "Luyện gõ Pinyin HSK 6",
+        "custom": "Luyện gõ Pinyin · Sổ tay từ vựng",
         "all": "Luyện gõ Pinyin · Tất cả HSK"
       };
       const sidebarMap = {
@@ -2167,13 +2524,16 @@
         "4": "Danh sách HSK 4",
         "5": "Danh sách HSK 5",
         "6": "Danh sách HSK 6",
+        "custom": "Sổ tay từ vựng",
         "all": "Tất cả HSK 1-6"
       };
       el.mainTitle.textContent = titleMap[level] || "Luyện gõ Pinyin HSK";
       el.sidebarTitle.textContent = sidebarMap[level] || "Danh sách";
 
       // Load vocab
-      if (level === "all") {
+      if (level === "custom") {
+        VOCAB = customNotes.length > 0 ? customNotes : [];
+      } else if (level === "all") {
         VOCAB = [].concat(
           HSK_DATA["1"], HSK_DATA["2"], HSK_DATA["3"],
           HSK_DATA["4"], HSK_DATA["5"], HSK_DATA["6"]
@@ -2234,9 +2594,51 @@
     el.sidebarOverlay.addEventListener("click", closeVocabList);
     el.closeDetailBtn.addEventListener("click", closeVocabDetail);
 
+    // Notebook events
+    document.getElementById("openNotebookBtn").addEventListener("click", openNotebookModal);
+    document.getElementById("closeNotebookBtn").addEventListener("click", closeNotebookModal);
+    document.getElementById("btnPracticeCustom").addEventListener("click", () => {
+      closeNotebookModal();
+      setLevel("custom");
+    });
+
+    document.getElementById("addNoteForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const hanzi = document.getElementById("noteHanzi").value.trim();
+      const pinyin = document.getElementById("notePinyin").value.trim();
+      const meaning = document.getElementById("noteMeaning").value.trim();
+      const example = document.getElementById("noteExample").value.trim();
+
+      if (!hanzi) return;
+
+      const newItem = {
+        id: "custom_" + Date.now(),
+        word: hanzi,
+        pinyin: pinyin || hanzi,
+        pos: "Ghi chú",
+        meanings: meaning ? [meaning] : ["Từ vựng cá nhân"],
+        examples: example ? [{ sentence: example, pinyin: "", meaning: "" }] : []
+      };
+
+      customNotes.unshift(newItem);
+      saveCustomNotes();
+      renderNotebookList();
+
+      document.getElementById("noteHanzi").value = "";
+      document.getElementById("notePinyin").value = "";
+      document.getElementById("noteMeaning").value = "";
+      document.getElementById("noteExample").value = "";
+
+      if (currentLevel === "custom") {
+        setLevel("custom");
+      }
+    });
+
     document.addEventListener("keydown", (event) => {
       if (event.key === "Escape") {
-        if (el.vocabDetail.classList.contains("open")) {
+        if (document.getElementById("notebookModal").classList.contains("show")) {
+          closeNotebookModal();
+        } else if (el.vocabDetail.classList.contains("open")) {
           closeVocabDetail();
         } else {
           closeVocabList();
@@ -2339,8 +2741,10 @@
         showSyncDot("syncing");
         try {
           const reviewArr = [...window._reviewMap.entries()];
+          const notesArr = window._customNotes || [];
           await setDoc(doc(db, "users", currentUser.uid), {
             reviewMap: reviewArr,
+            customNotes: notesArr,
             updatedAt: Date.now()
           }, { merge: true });
           showSyncDot("synced");
@@ -2359,6 +2763,11 @@
             if (data.reviewMap && Array.isArray(data.reviewMap)) {
               if (typeof window._restoreReviewMap === "function") {
                 window._restoreReviewMap(data.reviewMap);
+              }
+            }
+            if (data.customNotes && Array.isArray(data.customNotes)) {
+              if (typeof window._restoreCustomNotes === "function") {
+                window._restoreCustomNotes(data.customNotes);
               }
             }
           }
@@ -2418,26 +2827,33 @@
   </script>
 
   <script>
-    // Bridge: expose reviewMap and restore function for Firebase sync
-    // The main script sets window._reviewMap after loadReviewMap()
-    // We override saveReviewMap to also trigger cloud sync
+    // Bridge: expose reviewMap, customNotes and restore functions for Firebase sync
     const _origSaveReviewMap = window.saveReviewMap;
 
-    // Patch: after reviewMap is loaded, expose it globally
     Object.defineProperty(window, "_reviewMap", {
       get() { return reviewMap; },
       configurable: true
     });
 
-    // Patch: expose cloud restore
+    Object.defineProperty(window, "_customNotes", {
+      get() { return customNotes; },
+      configurable: true
+    });
+
     window._restoreReviewMap = function(arr) {
       reviewMap = new Map(arr);
-      saveReviewMap(); // persist to localStorage too
+      saveReviewMap();
       updateReviewBadge();
       renderVocabList();
     };
 
-    // Patch: trigger cloud save whenever reviewMap changes
+    window._restoreCustomNotes = function(arr) {
+      customNotes = arr;
+      saveCustomNotes();
+      updateCustomCount();
+      if (currentLevel === "custom") setLevel("custom");
+    };
+
     const _origAddToReview = addToReview;
     const _origRemoveFromReview = removeFromReview;
     window.addToReview = function(item) {
