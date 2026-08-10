@@ -1932,34 +1932,32 @@
 
     function loadVoices() {
       const voices = speechSynthesis.getVoices();
-      if (!voices || voices.length === 0) return;
-
-      const zhVoices = voices.filter(v => v.lang && v.lang.toLowerCase().replace('_', '-').startsWith('zh'));
-      const displayVoices = zhVoices.length > 0 ? zhVoices : voices;
+      const zhVoices = (voices || []).filter(v => v.lang && v.lang.toLowerCase().replace('_', '-').startsWith('zh'));
+      const displayVoices = zhVoices.length > 0 ? zhVoices : (voices || []);
 
       const select = document.getElementById("voiceSelect");
       if (select) {
         select.innerHTML = "";
+
+        // Default top option: Google Translate natural TTS
+        const gOpt = document.createElement("option");
+        gOpt.value = "google";
+        gOpt.textContent = "🔊 Google Dịch (Chuẩn nhất)";
+        select.appendChild(gOpt);
+
         displayVoices.forEach(v => {
           const opt = document.createElement("option");
           opt.value = v.name;
           const cleanName = v.name.replace(/Microsoft|Google|Apple|Chinese/gi, '').trim() || v.name;
-          opt.textContent = `🔊 ${cleanName}`;
+          opt.textContent = `🔊 Máy: ${cleanName}`;
           select.appendChild(opt);
         });
-      }
 
-      const savedVoiceName = localStorage.getItem("hsk_voice");
-      if (savedVoiceName) {
-        ttsVoice = voices.find(v => v.name === savedVoiceName) || null;
-      }
-
-      if (!ttsVoice) {
-        ttsVoice = getBestFemaleChineseVoice(voices);
-      }
-
-      if (ttsVoice && select) {
-        select.value = ttsVoice.name;
+        const savedVoiceName = localStorage.getItem("hsk_voice") || "google";
+        select.value = savedVoiceName;
+        if (savedVoiceName !== "google") {
+          ttsVoice = (voices || []).find(v => v.name === savedVoiceName) || null;
+        }
       }
       ttsReady = true;
     }
@@ -1972,31 +1970,74 @@
     const voiceSelectEl = document.getElementById("voiceSelect");
     if (voiceSelectEl) {
       voiceSelectEl.addEventListener("change", () => {
-        const name = voiceSelectEl.value;
-        const voices = speechSynthesis.getVoices();
-        ttsVoice = voices.find(v => v.name === name) || null;
-        if (ttsVoice) {
-          localStorage.setItem("hsk_voice", ttsVoice.name);
-          speakWord("你好");
+        const val = voiceSelectEl.value;
+        localStorage.setItem("hsk_voice", val);
+        if (val !== "google") {
+          const voices = speechSynthesis.getVoices();
+          ttsVoice = voices.find(v => v.name === val) || null;
         }
+        speakWord("你好");
       });
     }
 
-    function speakWord(text) {
-      if (!text || text === '—') return;
+    let currentAudio = null;
+
+    function getCleanTTSWord(text) {
+      if (!text || text === '—') return '';
+      let clean = text.replace(/[\(（].*?[\)）]/g, '');
+      clean = clean.split(/[|/]/)[0].trim();
+      return clean || text.trim();
+    }
+
+    function speakChineseText(text, btnEl) {
+      const cleanText = getCleanTTSWord(text);
+      if (!cleanText) return;
+
+      if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+      }
       speechSynthesis.cancel();
 
-      const utt = new SpeechSynthesisUtterance(text);
+      if (btnEl) btnEl.classList.add('speaking');
+
+      const stopBtnAnimation = () => {
+        if (btnEl) btnEl.classList.remove('speaking');
+      };
+
+      const selectedVoice = voiceSelectEl ? voiceSelectEl.value : 'google';
+
+      if (selectedVoice === 'google' || !selectedVoice) {
+        const googleUrl = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(cleanText)}&tl=zh-CN&client=tw-ob`;
+        currentAudio = new Audio(googleUrl);
+        currentAudio.onended = stopBtnAnimation;
+        currentAudio.onerror = () => {
+          speakWithWebSpeech(cleanText, stopBtnAnimation);
+        };
+        const playPromise = currentAudio.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(() => {
+            speakWithWebSpeech(cleanText, stopBtnAnimation);
+          });
+        }
+      } else {
+        speakWithWebSpeech(cleanText, stopBtnAnimation);
+      }
+    }
+
+    function speakWithWebSpeech(cleanText, onEndCallback) {
+      const utt = new SpeechSynthesisUtterance(cleanText);
       utt.lang = 'zh-CN';
       utt.rate = 0.85;
-      utt.pitch = 1.12;
+      utt.pitch = 1.05;
       if (ttsVoice) utt.voice = ttsVoice;
-
-      el.speakBtn.classList.add('speaking');
-      utt.onend = () => el.speakBtn.classList.remove('speaking');
-      utt.onerror = () => el.speakBtn.classList.remove('speaking');
-
+      utt.onend = onEndCallback;
+      utt.onerror = onEndCallback;
       speechSynthesis.speak(utt);
+    }
+
+    function speakWord(text) {
+      speakChineseText(text, el.speakBtn);
     }
 
     let VOCAB = HSK_DATA["1"];
@@ -2221,16 +2262,81 @@
       return queue[currentIndex];
     }
 
-    function acceptedAnswers(word) {
-      const answers = new Set();
-      const raw = word.pinyin || "";
-      raw.split(/[|/]/).forEach((part) => {
-        const cleaned = normalizePinyin(part);
-        if (cleaned) {
-          answers.add(cleaned);
-          answers.add(cleaned.replace(/[0-9]/g, ""));
+    function getHanziVariants(wordStr) {
+      const variants = new Set();
+      if (!wordStr) return variants;
+      const normRaw = cleanHanzi(wordStr);
+      if (normRaw) variants.add(normRaw);
+
+      let cleaned = wordStr.replace(/[\(（](?:动|名|量|副|形|介|代|连|助|叹|量\/动|名，量)[\)）]/g, "");
+      const parts = cleaned.split(/[|/]/);
+      parts.forEach(part => {
+        let p = part.trim();
+        if (!p) return;
+        const normBase = cleanHanzi(p);
+        if (normBase) variants.add(normBase);
+
+        const match = p.match(/(.*?)[\(（](.*?)[\)）](.*)/);
+        if (match) {
+          const prefix = match[1].trim();
+          const inside = match[2].trim();
+          const suffix = match[3].trim();
+          if (inside.length === 1) {
+            const v1 = cleanHanzi(prefix + suffix);
+            const v2 = cleanHanzi(prefix + inside + suffix);
+            if (v1) variants.add(v1);
+            if (v2) variants.add(v2);
+          } else {
+            const vPrefix = cleanHanzi(prefix);
+            const vInside = cleanHanzi(inside);
+            if (vPrefix) variants.add(vPrefix);
+            if (vInside) variants.add(vInside);
+          }
         }
       });
+      return variants;
+    }
+
+    function acceptedAnswers(word) {
+      const answers = new Set();
+      if (!word) return answers;
+
+      let rawPy = (word.pinyin || "")
+        .replace(/gàn\/huór/g, "gànhuór")
+        .replace(/\/\//g, "")
+        .replace(/\n/g, "/");
+
+      const pyParts = rawPy.split(/[|/]/);
+      pyParts.forEach(part => {
+        let p = part.trim().replace(/^[/\s]+|[/\s]+$/g, "");
+        if (!p) return;
+
+        const match = p.match(/(.*?)[\(（](.*?)[\)）](.*)/);
+        if (match) {
+          const prefix = normalizePinyin(match[1]);
+          const inside = normalizePinyin(match[2]);
+          const suffix = normalizePinyin(match[3]);
+
+          if (inside) {
+            if (prefix || suffix) {
+              answers.add(prefix + suffix);
+              answers.add(prefix + inside + suffix);
+            }
+            answers.add(inside);
+          }
+          if (prefix) answers.add(prefix);
+        } else {
+          const norm = normalizePinyin(p);
+          if (norm) {
+            answers.add(norm);
+            answers.add(norm.replace(/[0-9]/g, ""));
+            if (norm.endsWith("r") && norm.length > 2 && norm !== "er") {
+              answers.add(norm.slice(0, -1));
+            }
+          }
+        }
+      });
+
       return answers;
     }
 
@@ -2306,22 +2412,13 @@
 
     function closeVocabDetail() {
       el.vocabDetail.classList.remove("open");
+      if (currentAudio) currentAudio.pause();
       speechSynthesis.cancel();
       el.detailSpeakBtn.classList.remove("speaking");
     }
 
     function speakWordDetail(text) {
-      if (!text) return;
-      speechSynthesis.cancel();
-      const utt = new SpeechSynthesisUtterance(text);
-      utt.lang = 'zh-CN';
-      utt.rate = 0.85;
-      utt.pitch = 1.12;
-      if (ttsVoice) utt.voice = ttsVoice;
-      el.detailSpeakBtn.classList.add('speaking');
-      utt.onend = () => el.detailSpeakBtn.classList.remove('speaking');
-      utt.onerror = () => el.detailSpeakBtn.classList.remove('speaking');
-      speechSynthesis.speak(utt);
+      speakChineseText(text, el.detailSpeakBtn);
     }
 
     function updateVocabListHighlight() {
@@ -2452,9 +2549,11 @@
       if (!rawInput) return;
 
       const input = toHalfWidth(rawInput);
+      const userHanzi = cleanHanzi(input);
 
       // 1. Check if user typed Hanzi directly using Chinese keyboard / IME
-      if (cleanHanzi(input) === cleanHanzi(word.word)) {
+      const hanziVariants = getHanziVariants(word.word);
+      if (hanziVariants.has(userHanzi)) {
         markCorrect();
         return;
       }

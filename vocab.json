@@ -56,7 +56,7 @@
   {
     "id": 4,
     "word": "爸爸 | 爸",
-    "pinyin": "bàba",
+    "pinyin": "bàba | bà",
     "pos": "Danh từ",
     "meanings": [
       "Bố; ba"
@@ -1159,7 +1159,7 @@
   },
   {
     "id": 74,
-    "word": "弟弟 |  弟",
+    "word": "弟弟 | 弟",
     "pinyin": "dìdi | dì",
     "pos": "Danh từ",
     "meanings": [
@@ -1821,8 +1821,8 @@
   },
   {
     "id": 117,
-    "word": "告诉",
-    "pinyin": "gàosu",
+    "word": "哥哥 | 哥",
+    "pinyin": "gēge | gē",
     "pos": "Động từ",
     "meanings": [
       "Nói; bày tỏ"
@@ -2291,8 +2291,8 @@
   },
   {
     "id": 146,
-    "word": "很",
-    "pinyin": "hěn",
+    "word": "后 | 后边",
+    "pinyin": "hòu | hòubian",
     "pos": "Phó từ",
     "meanings": [
       "Rất, nhiều"
@@ -6123,8 +6123,8 @@
   },
   {
     "id": 389,
-    "word": "下",
-    "pinyin": "xià",
+    "word": "那时候 | 那时",
+    "pinyin": "nà shíhou | nà shí",
     "pos": "Danh từ",
     "meanings": [
       "Dưới, phía dưới, bên dưới",
@@ -6961,8 +6961,8 @@
   },
   {
     "id": 441,
-    "word": "有",
-    "pinyin": "yǒu",
+    "word": "有时候 | 有时",
+    "pinyin": "yǒu shíhou | yǒu shí",
     "pos": "Động từ",
     "meanings": [
       "Có, tồn tại"
