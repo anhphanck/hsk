@@ -1615,6 +1615,183 @@
     .btn-practice-custom:hover {
       transform: translateY(-1px);
     }
+
+    /* ===== LESSON SELECTOR ===== */
+    .lesson-selector {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    .lesson-selector.hidden { display: none; }
+    .lesson-btn {
+      border: 1.5px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      padding: 5px 11px;
+      font-family: inherit;
+      font-size: 0.77rem;
+      font-weight: 700;
+      cursor: pointer;
+      background: var(--surface-2);
+      color: var(--muted);
+      transition: all 0.15s;
+    }
+    .lesson-btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,0.25);
+      color: var(--text);
+    }
+    .lesson-btn.active {
+      background: rgba(59,130,246,0.2);
+      border-color: var(--accent);
+      color: #93c5fd;
+      box-shadow: 0 0 10px rgba(59,130,246,0.15);
+    }
+    .lesson-btn.completed {
+      background: rgba(34,197,94,0.15);
+      border-color: rgba(34,197,94,0.4);
+      color: #86efac;
+    }
+    .lesson-btn.completed.active {
+      background: rgba(34,197,94,0.25);
+      border-color: #22c55e;
+      box-shadow: 0 0 10px rgba(34,197,94,0.2);
+    }
+    .lesson-btn.partial {
+      background: rgba(245,158,11,0.1);
+      border-color: rgba(245,158,11,0.3);
+      color: #fcd34d;
+    }
+    .lesson-reset-btn {
+      border: 1.5px solid rgba(239,68,68,0.2);
+      border-radius: 10px;
+      padding: 5px 10px;
+      font-family: inherit;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      background: transparent;
+      color: #fca5a5;
+      transition: all 0.15s;
+      margin-left: auto;
+    }
+    .lesson-reset-btn:hover {
+      background: rgba(239,68,68,0.12);
+      border-color: rgba(239,68,68,0.45);
+    }
+    .lesson-label {
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-right: 2px;
+      flex-shrink: 0;
+    }
+
+    /* ===== READING MODAL ===== */
+    .reading-modal-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      width: min(720px, 100%);
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+      overflow: hidden;
+    }
+    .reading-header {
+      padding: 16px 22px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--surface-2);
+      flex-shrink: 0;
+    }
+    .reading-header h2 {
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+    .reading-level-tabs {
+      display: flex;
+      gap: 4px;
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+      flex-wrap: wrap;
+      background: var(--surface-2);
+    }
+    .reading-tab {
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      border-radius: 8px;
+      padding: 5px 13px;
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .reading-tab:hover { border-color: rgba(59,130,246,0.4); color: var(--text); }
+    .reading-tab.active { background: var(--accent); border-color: var(--accent); color: white; }
+    .reading-body { padding: 22px; overflow-y: auto; flex: 1; }
+    .reading-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 4px; color: var(--text); }
+    .reading-subtitle { font-family: "Noto Sans SC", sans-serif; font-size: 0.95rem; color: #93c5fd; margin-bottom: 16px; }
+    .reading-controls { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+    .btn-reading-control {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      border-radius: 10px;
+      padding: 7px 13px;
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-reading-control:hover { background: var(--accent-soft); border-color: rgba(59,130,246,0.4); color: #93c5fd; }
+    .btn-reading-control.active { background: var(--accent-soft); border-color: var(--accent); color: #93c5fd; }
+    .reading-sentence {
+      margin-bottom: 12px;
+      padding: 15px 16px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      transition: border-color 0.2s;
+    }
+    .reading-sentence:hover { border-color: rgba(59,130,246,0.28); }
+    .sentence-zh { font-family: "Noto Sans SC", sans-serif; font-size: 1.12rem; line-height: 1.85; color: var(--text); margin-bottom: 3px; }
+    .sentence-py { font-size: 0.88rem; color: #93c5fd; line-height: 1.7; margin-bottom: 3px; display: none; }
+    .sentence-py.show { display: block; }
+    .sentence-vi { font-size: 0.85rem; color: var(--muted); line-height: 1.6; display: none; }
+    .sentence-vi.show { display: block; }
+    .btn-sentence-speak {
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      cursor: pointer;
+      color: var(--muted);
+      padding: 6px 9px;
+      flex-shrink: 0;
+      transition: all 0.15s;
+      font-size: 0.9rem;
+      line-height: 1;
+      align-self: flex-start;
+    }
+    .btn-sentence-speak:hover { color: #93c5fd; border-color: rgba(59,130,246,0.4); background: var(--accent-soft); }
+
+    @media (max-width: 600px) {
+      .lesson-selector { gap: 4px; }
+      .lesson-btn { padding: 4px 9px; font-size: 0.72rem; }
+      .reading-body { padding: 14px; }
+      .reading-sentence { padding: 12px; }
+      .sentence-zh { font-size: 1rem; }
+    }
   </style>
 </head>
 
@@ -1631,6 +1808,7 @@
           🔖 Ôn lại <span class="review-count" id="reviewCount">0</span>
         </button>
         <button class="btn-list" id="openNotebookBtn" type="button">📝 Sổ tay</button>
+        <button class="btn-list" id="openReadingBtn" type="button">📖 Bài đọc</button>
         <button class="btn-list" id="openListBtn" type="button">Danh sách</button>
         <div class="badge" id="totalBadge">0 từ</div>
         <div class="user-avatar" id="userAvatar" title="Tài khoản — bấm để đăng xuất">
@@ -1668,6 +1846,25 @@
       </div>
     </div>
 
+    <!-- Reading Modal -->
+    <div class="modal-overlay" id="readingModal">
+      <div class="reading-modal-card">
+        <div class="reading-header">
+          <h2>📖 Bài đọc luyện tập HSK</h2>
+          <button class="btn-close" id="closeReadingBtn" type="button" aria-label="Đóng">✕</button>
+        </div>
+        <div class="reading-level-tabs" id="readingLevelTabs">
+          <button class="reading-tab active" data-rlevel="1">HSK 1</button>
+          <button class="reading-tab" data-rlevel="2">HSK 2</button>
+          <button class="reading-tab" data-rlevel="3">HSK 3</button>
+          <button class="reading-tab" data-rlevel="4">HSK 4</button>
+          <button class="reading-tab" data-rlevel="5">HSK 5</button>
+          <button class="reading-tab" data-rlevel="6">HSK 6</button>
+        </div>
+        <div class="reading-body" id="readingBody"></div>
+      </div>
+    </div>
+
     <!-- Login Overlay -->
     <div class="login-overlay" id="loginOverlay">
       <div class="login-card">
@@ -1701,6 +1898,9 @@
         <span class="rainbow-text">✦ Tất cả</span>
       </button>
     </div>
+
+    <!-- Lesson Selector -->
+    <div class="lesson-selector hidden" id="lessonSelector"></div>
 
     <!-- Review Mode Banner -->
     <div class="review-banner" id="reviewBanner">
@@ -2098,6 +2298,7 @@
       // Show review UI
       el.reviewBanner.classList.add('show');
       el.levelSelector.style.display = 'none';
+      document.getElementById('lessonSelector').classList.add('hidden');
       el.reviewBtn.classList.add('active');
       el.mainCard.dataset.level = 'review';
       el.progressFill.dataset.level = '4'; // amber color
@@ -2124,6 +2325,44 @@
     }
 
     loadReviewMap();
+
+    // ===== LEARNED WORDS — persist progress per HSK level =====
+    let learnedWordsMap = {}; // { "1": Set([...words...]), "2": Set([...]), ... }
+
+    function loadLearnedWords() {
+      try {
+        const saved = localStorage.getItem('hsk_learned');
+        if (saved) {
+          const obj = JSON.parse(saved);
+          for (const [k, v] of Object.entries(obj)) {
+            learnedWordsMap[k] = new Set(v);
+          }
+        }
+      } catch(e) {}
+    }
+
+    function saveLearnedWords() {
+      try {
+        const obj = {};
+        for (const [k, v] of Object.entries(learnedWordsMap)) {
+          obj[k] = [...v];
+        }
+        localStorage.setItem('hsk_learned', JSON.stringify(obj));
+      } catch(e) {}
+      if (window._saveToCloud) {
+        clearTimeout(window._cloudSyncTimer);
+        window._cloudSyncTimer = setTimeout(window._saveToCloud, 1500);
+      }
+    }
+
+    function addToLearnedWords(level, word) {
+      if (!level || level === 'all' || level === 'custom') return;
+      if (!learnedWordsMap[level]) learnedWordsMap[level] = new Set();
+      learnedWordsMap[level].add(word);
+      saveLearnedWords();
+    }
+
+    loadLearnedWords();
 
     // ===== PERSONAL VOCAB NOTEBOOK =====
     let customNotes = [];
@@ -2216,6 +2455,8 @@
     }
 
     loadCustomNotes();
+    const LESSON_SIZE = 50;
+    let currentLesson = 0;
     let currentIndex = 0;
     let advancing = false;
     let completedWords = new Set();
@@ -2528,8 +2769,10 @@
         el.feedback.textContent = '✓ Đã nhớ! Xóa khỏi danh sách ôn.';
         el.feedback.className = 'feedback ok';
       } else {
-        el.feedback.textContent = 'Chính xác!';
+        el.feedback.textContent = 'Chính xác! ✓';
         el.feedback.className = 'feedback ok';
+        addToLearnedWords(currentLevel, word.word);
+        renderLessonSelector(currentLevel);
       }
 
       completedWords.add(word.word);
@@ -2584,10 +2827,11 @@
 
     function startNewRound() {
       if (isReviewMode) {
-        // Rebuild from current reviewMap
         VOCAB = [...reviewMap.values()];
+        queue = shuffle(VOCAB);
+      } else {
+        queue = shuffle(getActiveLessonWords());
       }
-      queue = shuffle(VOCAB);
       currentIndex = 0;
       completedWords = new Set();
       showWord();
@@ -2595,6 +2839,7 @@
 
     function setLevel(level) {
       currentLevel = level;
+      try { localStorage.setItem('hsk_last_level', level); } catch(e) {}
 
       // Update active button
       document.querySelectorAll(".level-btn").forEach(btn => {
@@ -2645,7 +2890,19 @@
       el.totalBadge.textContent = `${count} từ`;
       el.sidebarBadge.textContent = `${count} từ`;
 
+      // Restore saved lesson for this level
+      if (level !== 'all' && level !== 'custom') {
+        try {
+          const savedLesson = parseInt(localStorage.getItem('hsk_lesson_' + level) || '0');
+          const totalLessons = Math.ceil(VOCAB.length / LESSON_SIZE);
+          currentLesson = (savedLesson >= 0 && savedLesson < totalLessons) ? savedLesson : 0;
+        } catch(e) { currentLesson = 0; }
+      } else {
+        currentLesson = 0;
+      }
+
       renderVocabList();
+      renderLessonSelector(level);
       startNewRound();
     }
 
@@ -2735,7 +2992,9 @@
 
     document.addEventListener("keydown", (event) => {
       if (event.key === "Escape") {
-        if (document.getElementById("notebookModal").classList.contains("show")) {
+        if (document.getElementById("readingModal").classList.contains("show")) {
+          closeReadingModal();
+        } else if (document.getElementById("notebookModal").classList.contains("show")) {
           closeNotebookModal();
         } else if (el.vocabDetail.classList.contains("open")) {
           closeVocabDetail();
@@ -2769,8 +3028,210 @@
 
     el.goReviewBtn.addEventListener("click", startReviewMode);
 
-    // Init with HSK 1
-    setLevel("1");
+    // ===== LESSON MANAGEMENT =====
+    function getActiveLessonWords() {
+      if (currentLevel === 'all' || currentLevel === 'custom') return VOCAB;
+      const start = currentLesson * LESSON_SIZE;
+      const end = Math.min(start + LESSON_SIZE, VOCAB.length);
+      return VOCAB.slice(start, end);
+    }
+
+    function renderLessonSelector(level) {
+      const container = document.getElementById('lessonSelector');
+      if (!container) return;
+      if (level === 'all' || level === 'custom' || isReviewMode) {
+        container.classList.add('hidden');
+        return;
+      }
+      const allLevelVocab = HSK_DATA[level] || [];
+      const totalLessons = Math.ceil(allLevelVocab.length / LESSON_SIZE);
+      if (totalLessons <= 1) { container.classList.add('hidden'); return; }
+      container.classList.remove('hidden');
+      container.innerHTML = '<span class="lesson-label">Bài:</span>';
+      const learned = learnedWordsMap[level] || new Set();
+      for (let i = 0; i < totalLessons; i++) {
+        const start = i * LESSON_SIZE;
+        const lessonWords = allLevelVocab.slice(start, start + LESSON_SIZE);
+        const learnedCount = lessonWords.filter(w => learned.has(w.word)).length;
+        const total = lessonWords.length;
+        const isComplete = learnedCount === total && total > 0;
+        const isPartial = learnedCount > 0 && !isComplete;
+        const isActive = i === currentLesson;
+        let cls = 'lesson-btn';
+        if (isActive) cls += ' active';
+        if (isComplete) cls += ' completed';
+        else if (isPartial && !isActive) cls += ' partial';
+        const icon = isComplete ? '\u2713 ' : (isPartial ? '\u25d1 ' : '');
+        const btn = document.createElement('button');
+        btn.className = cls;
+        btn.textContent = icon + 'Bài ' + (i + 1);
+        btn.title = 'Bài ' + (i + 1) + ' (từ ' + (start + 1) + '\u2013' + Math.min(start + LESSON_SIZE, allLevelVocab.length) + ') · đã học ' + learnedCount + '/' + total;
+        btn.dataset.lesson = i;
+        btn.addEventListener('click', () => {
+          const idx = parseInt(btn.dataset.lesson);
+          if (idx === currentLesson) { startNewRound(); } else { setLesson(idx); }
+        });
+        container.appendChild(btn);
+      }
+      const resetBtn = document.createElement('button');
+      resetBtn.className = 'lesson-reset-btn';
+      resetBtn.textContent = '\u21ba Reset bài này';
+      resetBtn.title = 'Đặt lại tiến độ Bài ' + (currentLesson + 1);
+      resetBtn.addEventListener('click', () => {
+        const start = currentLesson * LESSON_SIZE;
+        const lessonWords = allLevelVocab.slice(start, start + LESSON_SIZE);
+        if (learnedWordsMap[level]) {
+          lessonWords.forEach(w => learnedWordsMap[level].delete(w.word));
+          saveLearnedWords();
+        }
+        renderLessonSelector(level);
+        startNewRound();
+      });
+      container.appendChild(resetBtn);
+    }
+
+    function setLesson(lessonIdx) {
+      currentLesson = lessonIdx;
+      try { localStorage.setItem('hsk_lesson_' + currentLevel, lessonIdx); } catch(e) {}
+      renderLessonSelector(currentLevel);
+      startNewRound();
+    }
+
+    // ===== READING PASSAGES =====
+    const READING_PASSAGES = [
+      { level: 1, title: "Tôi và gia đình tôi", subtitle: "\u6211\u548c\u6211\u7684\u5bb6\u5ead",
+        sentences: [
+          { zh: "\u6211\u53eb\u5c0f\u660e\uff0c\u4eca\u5e74\u4e8c\u5341\u5c81\uff0c\u6211\u662f\u5b66\u751f\u3002", py: "W\u01d2 ji\u00e0o Xi\u01ceo M\u00edng, j\u012bni\u00e1n \u00e8rsh\u00ed su\u00ec, w\u01d2 sh\u00ec xu\u00e9sh\u0113ng.", vi: "Tôi tên Tiểu Minh, năm nay hai mươi tuổi, tôi là học sinh." },
+          { zh: "\u6211\u5bb6\u6709\u4e09\u53e3\u4eba\uff1a\u7239\u7239\u3001\u5988\u5988\u548c\u6211\u3002", py: "W\u01d2 ji\u0101 y\u01d2u s\u0101n k\u01d2u r\u00e9n: b\u00e0ba, m\u0101ma h\u00e9 w\u01d2.", vi: "Nhà tôi có ba người: bố, mẹ và tôi." },
+          { zh: "\u7239\u7239\u5728\u516c\u53f8\u5de5\u4f5c\uff0c\u5988\u5988\u5728\u5b66\u6821\u6559\u4e66\u3002", py: "B\u00e0ba z\u00e0i g\u014fngs\u012b g\u014fngzu\u00f2, m\u0101ma z\u00e0i xu\u00e9xi\u00e0o ji\u0101o sh\u016b.", vi: "Bố làm việc ở công ty, mẹ dạy học ở trường." },
+          { zh: "\u6211\u5bb6\u5728\u5317\u4eac\uff0c\u5317\u4eac\u662f\u4e2d\u56fd\u7684\u9996\u90fd\uff0c\u5f88\u5927\uff0c\u4e5f\u5f88\u6f02\u4eae\u3002", py: "W\u01d2 ji\u0101 z\u00e0i B\u011bj\u012bng, B\u011bj\u012bng sh\u00ec Zh\u014fnggu\u00f3 de sh\u01d2ud\u016b, h\u011bn d\u00e0, y\u011b h\u011bn pi\u00e0oliang.", vi: "Nhà tôi ở Bắc Kinh, Bắc Kinh là thủ đô của Trung Quốc, rất lớn và rất đẹp." },
+          { zh: "\u6211\u559c\u6b22\u5b66\u4e60\u6c49\u8bed\uff0c\u4e5f\u559c\u6b22\u6253\u7403\u548c\u5531\u6b4c\u3002", py: "W\u01d2 x\u01d0hu\u0101n xu\u00e9x\u00ed H\u00e0ny\u01d4, y\u011b x\u01d0hu\u0101n d\u01caq\u00fa h\u00e9 ch\u00e0ng g\u0113.", vi: "Tôi thích học tiếng Hán, cũng thích chơi bóng và ca hát." },
+          { zh: "\u661f\u671f\u516d\uff0c\u6211\u4eec\u4e00\u5bb6\u4eba\u4e00\u8d77\u53bb\u516c\u56ed\u73a9\u513f\u3002", py: "X\u012bngq\u012bl\u00f9, w\u01d2men y\u012bji\u0101r\u00e9n y\u012bq\u01d0 q\u00f9 g\u014fngy\u00faan w\u00e1nr.", vi: "Thứ Bảy, cả gia đình chúng tôi cùng nhau đi công viên chơi." },
+          { zh: "\u516c\u56ed\u91cc\u6709\u5f88\u591a\u82b1\uff0c\u4e5f\u6709\u5f88\u591a\u6811\uff0c\u5f88\u597d\u770b\u3002", py: "G\u014fngy\u00faan l\u01d0 y\u01d2u h\u011bnduo hu\u0101, y\u011b y\u01d2u h\u011bnduo sh\u00f9, h\u011bn h\u01cok\u00e0n.", vi: "Trong công viên có rất nhiều hoa, cũng rất nhiều cây, rất đẹp." },
+          { zh: "\u6211\u4eec\u5728\u516c\u56ed\u91cc\u5403\u4e1c\u897f\uff0c\u8bf4\u8bdd\uff0c\u5927\u5bb6\u90fd\u5f88\u9ad8\u5174\u3002", py: "W\u01d2men z\u00e0i g\u014fngy\u00faan l\u01d0 ch\u012b d\u014fngxi, shu\u014dhu\u00e0, d\u00e0ji\u0101 d\u014fu h\u011bn g\u0101ox\u00ecng.", vi: "Chúng tôi ăn uống, nói chuyện trong công viên, ai cũng rất vui." }
+        ]
+      },
+      { level: 2, title: "Ngày học bận rộn", subtitle: "\u5fd9\u788c\u7684\u5b66\u4e60\u65e5",
+        sentences: [
+          { zh: "\u4eca\u5929\u662f\u661f\u671f\u4e09\uff0c\u5929\u6c14\u4e0d\u592a\u597d\uff0c\u6709\u4e00\u70b9\u51b7\u3002", py: "J\u012bti\u0101n sh\u00ec x\u012bngq\u012bs\u0101n, ti\u0101nq\u00ec b\u00f9 t\u00e0i h\u01ceo, y\u01d2u y\u012bdi\u01cen l\u011bng.", vi: "Hôm nay là thứ Tư, thời tiết không tốt lắm, có một chút lạnh." },
+          { zh: "\u4e0a\u5348\u516b\u70b9\uff0c\u6211\u9a91\u81ea\u884c\u8f66\u53bb\u5b66\u6821\u4e0a\u8bfe\u3002", py: "Sh\u00e0ngw\u01d4 b\u0101 di\u01cen, w\u01d2 q\u00ed z\u00ecx\u00edngch\u0113 q\u00f9 xu\u00e9xi\u00e0o sh\u00e0ngk\u00e8.", vi: "Tám giờ sáng, tôi đạp xe đến trường đi học." },
+          { zh: "\u8001\u5e08\u8bb2\u4e86\u5f88\u591a\u65b0\u751f\u8bcd\uff0c\u6211\u8ba4\u771f\u505a\u7b14\u8bb0\u3002", py: "L\u01ceo sh\u012b ji\u01ceng le h\u011bnduo x\u012bn sh\u0113ngc\u00ed, w\u01d2 r\u00e8nzh\u0113n zu\u00f2 b\u01d0j\u00ec.", vi: "Thầy giáo dạy rất nhiều từ mới, tôi ghi chú cẩn thận." },
+          { zh: "\u4e2d\u5348\uff0c\u6211\u548c\u540c\u5b66\u53bb\u5b66\u6821\u65c1\u8fb9\u7684\u9910\u5385\u5403\u996d\u3002", py: "Zh\u014fngw\u01d4, w\u01d2 h\u00e9 t\u00f3ngxu\u00e9 q\u00f9 xu\u00e9xi\u00e0o p\u00e1ngbi\u0101n de c\u0101ngu\u01cen ch\u012bf\u00e0n.", vi: "Buổi trưa, tôi và bạn cùng lớp đến nhà hàng cạnh trường ăn cơm." },
+          { zh: "\u83dc\u5f88\u597d\u5403\uff0c\u4f46\u662f\u6709\u4e00\u70b9\u8d35\uff0c\u6211\u4eec\u82b1\u4e86\u4e0d\u5c11\u9322\u3002", py: "C\u00e0i h\u011bn h\u01ceo ch\u012b, d\u00e0nsh\u00ec y\u01d2u y\u012bdi\u01cen gu\u00ec, w\u01d2men hu\u0101 le b\u00f9 sh\u01ceo qi\u00e1n.", vi: "Đồ ăn rất ngon, nhưng hơi đắt, chúng tôi đã tiêu khá nhiều tiền." },
+          { zh: "\u4e0b\u5348\uff0c\u6211\u5728\u56fe\u4e66\u9986\u501f\u4e86\u4e24\u672c\u4e66\uff0c\u7136\u540e\u56de\u5bb6\u3002", py: "Xi\u00e0w\u01d4, w\u01d2 z\u00e0i t\u00fashu\u01d0gu\u01cen ji\u00e8 le li\u01ceng b\u011bn sh\u016b, r\u00e1nh\u00f2u hu\u00ed ji\u0101.", vi: "Buổi chiều, tôi mượn hai cuốn sách ở thư viện, rồi về nhà." },
+          { zh: "\u8def\u4e0a\uff0c\u6211\u770b\u89c1\u4e00\u53ea\u5c0f\u732b\u5728\u8def\u8fb9\u73a9\u513f\uff0c\u975e\u5e38\u53ef\u7231\u3002", py: "L\u00f9shang, w\u01d2 k\u00e0nji\u00e0n y\u012b zh\u012b xi\u01ceo m\u0101o z\u00e0i l\u00f9bi\u0101n w\u00e1nr, f\u0113ich\u00e1ng k\u011b'\u00e0i.", vi: "Trên đường, tôi thấy một con mèo nhỏ chơi bên đường, rất đáng yêu." },
+          { zh: "\u665a\u4e0a\uff0c\u5168\u5bb6\u4eba\u4e00\u8d77\u770b\u7535\u89c6\uff0c\u804a\u5929\uff0c\u5927\u5bb6\u90fd\u5f88\u5f00\u5fc3\u3002", py: "W\u01censhang, qu\u00e1nji\u0101r\u00e9n y\u012bq\u01d0 k\u00e0n di\u00e0nsh\u00ec, li\u00e1oti\u0101n, d\u00e0ji\u0101 d\u014fu h\u011bn k\u0101ix\u012bn.", vi: "Buổi tối, cả nhà cùng xem tivi, nói chuyện, ai cũng rất vui vẻ." }
+        ]
+      },
+      { level: 3, title: "Người bạn tốt", subtitle: "\u597d\u670b\u53cb",
+        sentences: [
+          { zh: "\u6211\u7684\u670b\u53cb\u738b\u660e\u662f\u4e00\u4e2a\u975e\u5e38\u52aa\u529b\u7684\u4eba\uff0c\u4e5f\u662f\u4e00\u4e2a\u6709\u7231\u5fc3\u7684\u4eba\u3002", py: "W\u01d2 de p\u00e9ngyou W\u00e1ng M\u00edng sh\u00ec y\u012b g\u00e8 f\u0113ich\u00e1ng n\u01d4l\u00ec de r\u00e9n, y\u011b sh\u00ec y\u012b g\u00e8 y\u01d2u \u00e0ix\u012bn de r\u00e9n.", vi: "Bạn tôi là Vương Minh, là một người rất chăm chỉ, cũng là người giàu lòng nhân ái." },
+          { zh: "\u4ed6\u6bcf\u5929\u65e9\u4e0a\u516d\u70b9\u8d77\u5e8a\uff0c\u5148\u953b\u70bc\u534a\u4e2a\u5c0f\u65f6\uff0c\u7136\u540e\u53bb\u4e0a\u73ed\u3002", py: "T\u0101 m\u011bti\u0101n z\u01ceo shang li\u00f9 di\u01cen q\u01d0chu\u00e1ng, xi\u0101n du\u00e0nli\u00e0n b\u00e0n g\u00e8 xi\u01ceo sh\u00ed, r\u00e1nh\u00f2u q\u00f9 sh\u00e0ngb\u0101n.", vi: "Mỗi ngày anh ấy dậy lúc sáu giờ sáng, trước tiên tập thể dục nửa tiếng, rồi mới đi làm." },
+          { zh: "\u867d\u7136\u4ed6\u7684\u5de5\u4f5c\u5f88\u5fe9\uff0c\u4f46\u662f\u4ed6\u603b\u662f\u4fdd\u6301\u5fae\u7b11\uff0c\u5fc3\u60c5\u5f88\u597d\u3002", py: "Su\u012br\u00e1n t\u0101 de g\u014fngzu\u00f2 h\u011bn m\u00e1ng, d\u00e0nsh\u00ec t\u0101 z\u01d2ngsh\u00ec b\u01ceo ch\u00ed w\u0113ix\u00eeo, x\u012bnq\u00edng h\u011bn h\u01ceo.", vi: "Dù công việc rất bận, nhưng anh ấy luôn giữ nụ cười, tâm trạng rất tốt." },
+          { zh: "\u4ed6\u544a\u8bc9\u6211\uff0c\u5feb\u4e50\u7684\u79d8\u5bc6\u662f\u505a\u81ea\u5df1\u559c\u6b22\u7684\u4e8b\u60c5\u3002", py: "T\u0101 g\u00e0osu w\u01d2, ku\u00e0il\u00e8 de m\u00ecm\u00ec sh\u00ec zu\u00f2 z\u00ecj\u01d0 x\u01d0hu\u0101n de sh\u00ecqing.", vi: "Anh ấy nói với tôi, bí quyết của hạnh phúc là làm những điều mình thích." },
+          { zh: "\u738b\u660e\u559c\u6b22\u65c5\u6e38\uff0c\u4ed6\u5df2\u7ecf\u53bb\u8fc7\u4e0a\u6d77\u3001\u5e7f\u5dde\u3001\u897f\u5b89\u7b49\u5f88\u591a\u5730\u65b9\u3002", py: "W\u00e1ng M\u00edng x\u01d0hu\u0101n l\u01d4y\u00f3u, t\u0101 y\u01d0j\u012bng q\u00f9gu\u00f2 Sh\u00e0ngh\u01cei, Gu\u01cengzh\u014fu, X\u012b'\u0101n d\u011bng h\u011bndu\u014f d\u00ecf\u0101ng.", vi: "Vương Minh thích du lịch, anh ấy đã đến Thượng Hải, Quảng Châu, Tây An và nhiều nơi khác." },
+          { zh: "\u4ed6\u8bf4\u65c5\u6e38\u80fd\u8ba9\u4eba\u4e86\u89e3\u4e0d\u540c\u7684\u6587\u5316\uff0c\u5b66\u5230\u4e66\u672c\u4e0a\u6ca1\u6709\u7684\u77e5\u8bc6\u3002", py: "T\u0101 shu\u014f l\u01d4y\u00f3u n\u00e9ng r\u00e0ng r\u00e9n li\u01coji\u011b b\u00f9t\u00f3ng de w\u00e9nhu\u00e0, xu\u00e9 d\u00e0o sh\u016bb\u011bn sh\u00e0ng m\u00e9iy\u01d2u de zh\u012bshi.", vi: "Anh ấy nói du lịch giúp người ta hiểu các nền văn hóa khác nhau, học được kiến thức không có trong sách." },
+          { zh: "\u6211\u5e0c\u671b\u4ee5\u540e\u4e5f\u80fd\u50cf\u4ed6\u4e00\u6837\uff0c\u591a\u65c5\u6e38\uff0c\u591a\u8ba4\u8bc6\u8fd9\u4e2a\u4e16\u754c\u3002", py: "W\u01d2 x\u012bw\u00e0ng y\u01d0h\u00f2u y\u011b n\u00e9ng xi\u00e0ng t\u0101 y\u012by\u00e0ng, du\u014f l\u01d4y\u00f3u, du\u014f r\u00e8nshi zh\u00e8g\u00e8 sh\u00ecji\u00e8.", vi: "Tôi hy vọng sau này cũng có thể như anh ấy, đi du lịch nhiều hơn, hiểu biết thế giới nhiều hơn." }
+        ]
+      },
+      { level: 4, title: "Công nghệ thay đổi cuộc sống", subtitle: "\u79d1\u6280\u6539\u53d8\u751f\u6d3b",
+        sentences: [
+          { zh: "\u968f\u7740\u79d1\u6280\u7684\u8fc5\u901f\u53d1\u5c55\uff0c\u6211\u4eec\u7684\u65e5\u5e38\u751f\u6d3b\u53d1\u751f\u4e86\u5f88\u5927\u7684\u53d8\u5316\u3002", py: "Su\u00edz\u012be k\u0113j\u00ec de x\u00fons\u00f9 f\u0101zh\u01cen, w\u01d2men de r\u00ecch\u00e1ng sh\u0113nghu\u00f3 f\u0101sh\u0113ng le h\u011bn d\u00e0 de bi\u00e0nhu\u00e0.", vi: "Cùng với sự phát triển nhanh chóng của khoa học công nghệ, cuộc sống hàng ngày đã thay đổi rất nhiều." },
+          { zh: "\u8fc7\u53bb\uff0c\u4eba\u4eec\u901a\u8fc7\u5199\u4fe1\u6216\u8005\u6253\u7535\u8bdd\u4fdd\u6301\u8054\u7cfb\uff0c\u9700\u8981\u7b49\u5f88\u957f\u65f6\u95f4\u3002", py: "Gu\u00f2q\u00f9, r\u00e9nmen t\u014fnggu\u00f2 xi\u011b x\u00ecn hu\u00f2zh\u011b d\u01cea di\u00e0nhu\u00e0 b\u01ceoch\u00ed li\u00e1nxi, x\u016by\u00e0o d\u011bng h\u011bn ch\u00e1ng sh\u00edji\u0101n.", vi: "Trước đây, mọi người giữ liên lạc bằng cách viết thư hoặc gọi điện, phải chờ đợi rất lâu." },
+          { zh: "\u5982\u4eca\uff0c\u901a\u8fc7\u624b\u673a\u548c\u4e92\u8054\u7f51\uff0c\u6211\u4eec\u53ef\u4ee5\u968f\u65f6\u968f\u5730\u4e0e\u4e16\u754c\u5404\u5730\u7684\u670b\u53cb\u4ea4\u6d41\u3002", py: "R\u00faj\u012bn, t\u014fnggu\u00f2 sh\u01d2uj\u012b h\u00e9 h\u00f9li\u00e1nw\u01ceng, w\u01d2men k\u011by\u01d0 su\u00edsh\u00ed su\u00edd\u00ec y\u01d4 sh\u00ecji\u00e8 g\u00e8d\u00ec de p\u00e9ngyou ji\u0101oli\u00fa.", vi: "Ngày nay, qua điện thoại và internet, chúng ta có thể giao tiếp với bạn bè khắp nơi bất cứ lúc nào." },
+          { zh: "\u8fd9\u79cd\u53d8\u5316\u867d\u7136\u5e26\u6765\u4e86\u5f88\u591a\u65b9\u4fbf\uff0c\u4f46\u4e5f\u4ea7\u751f\u4e86\u4e00\u4e9b\u65b0\u7684\u95ee\u9898\u3002", py: "Zh\u00e8 zh\u01d2ng bi\u00e0nhu\u00e0 su\u012br\u00e1n d\u00e0il\u00e1i le h\u011bndu\u014f f\u0101ngbi\u00e0n, d\u00e0n y\u011b ch\u01censh\u0113ng le y\u012bxi\u0113 x\u012bn de w\u00e8nt\u00ed.", vi: "Sự thay đổi này tuy mang lại nhiều tiện lợi, nhưng cũng sinh ra một số vấn đề mới." },
+          { zh: "\u5f88\u591a\u5e74\u8f7b\u4eba\u6c89\u8ff7\u4e8e\u7f51\u7edc\uff0c\u51cf\u5c11\u4e86\u4e0e\u5bb6\u4eba\u548c\u670b\u53cb\u9762\u5bf9\u9762\u7684\u4ea4\u6d41\u3002", py: "H\u011bndu\u014f ni\u00e1nq\u012bngrén ch\u00e9nm\u00ed y\u00fa w\u01cenglu\u00f2, ji\u01censh\u01ceo le y\u01d4 ji\u0101r\u00e9n h\u00e9 p\u00e9ngyou mi\u00e0n du\u00ec mi\u00e0n de ji\u0101oli\u00fa.", vi: "Nhiều người trẻ nghiện internet, giảm bớt giao tiếp trực tiếp với gia đình và bạn bè." },
+          { zh: "\u53e6\u5916\uff0c\u7f51\u7edc\u4e0a\u7684\u4fe1\u606f\u771f\u5047\u96be\u8fa8\uff0c\u5bb9\u6613\u88ab\u9519\u8bef\u4fe1\u606f\u8bef\u5bfc\u3002", py: "L\u00ecngw\u00e0i, w\u01cenglu\u00f2 sh\u00e0ng de x\u00ecnxi zh\u0113n ji\u01ce n\u00e1n bi\u00e0n, r\u00f3ngy\u00ec b\u00e8i cu\u00f2wu\u00f9 x\u00ecnxi w\u00f9d\u01ceo.", vi: "Ngoài ra, thông tin trên mạng khó phân biệt thật giả, dễ bị thông tin sai lệch dẫn dắt." },
+          { zh: "\u56e0\u6b64\uff0c\u6211\u4eec\u5e94\u8be5\u5408\u7406\u4f7f\u7528\u79d1\u6280\uff0c\u8ba9\u5b83\u4e3a\u6211\u4eec\u670d\u52a1\uff0c\u800c\u4e0d\u662f\u63a7\u5236\u6211\u4eec\u7684\u751f\u6d3b\u3002", py: "Y\u012fnc\u01d0, w\u01d2men y\u012bngg\u0101i h\u00e9l\u01d0 sh\u01d0y\u00f2ng k\u0113j\u00ec, r\u00e0ng t\u0101 w\u00e8i w\u01d2men f\u00faw\u00f9, \u00e9r b\u00f9sh\u00ec k\u00f2ngzh\u00ec w\u01d2men de sh\u0113nghu\u00f3.", vi: "Vì vậy, chúng ta nên sử dụng công nghệ hợp lý, để nó phục vụ chúng ta, không phải kiểm soát cuộc sống của chúng ta." }
+        ]
+      },
+      { level: 5, title: "Nho giáo và xã hội hiện đại", subtitle: "\u5112\u5bb6\u601d\u60f3\u4e0e\u73b0\u4ee3\u793e\u4f1a",
+        sentences: [
+          { zh: "\u5112\u5bb6\u601d\u60f3\u662f\u4e2d\u56fd\u4f20\u7edf\u6587\u5316\u7684\u91cd\u8981\u7ec4\u6210\u90e8\u5206\uff0c\u5df2\u6709\u4e24\u5343\u591a\u5e74\u7684\u5386\u53f2\u3002", py: "R\u00faji\u0101 s\u012bxi\u01ceng sh\u00ec Zh\u014fnggu\u00f3 chu\u00e1nt\u01d2ng w\u00e9nhu\u00e0 de zh\u00f2ngyi\u00e0o z\u01d4ch\u00e9ng b\u00f9fen, y\u01d0 y\u01d2u li\u01cenqu\u012bn du\u014f ni\u00e1n de l\u00ecsh\u01d0.", vi: "Tư tưởng Nho giáo là một phần quan trọng của văn hóa truyền thống Trung Quốc, đã có lịch sử hơn hai nghìn năm." },
+          { zh: "\u5112\u5bb6\u5f3a\u8c03\u4ec1\u4e49\u793c\u667a\u4fe1\uff0c\u8ba4\u4e3a\u4e2a\u4eba\u7684\u9053\u5fb7\u4fee\u517b\u662f\u793e\u4f1a\u548c\u8c10\u7a33\u5b9a\u7684\u57fa\u7840\u3002", py: "R\u00faji\u0101 qi\u01cengdi\u00e0o r\u00e9n y\u00ec l\u01d0 zh\u00ec x\u00ecn, r\u00e8nw\u00e9i g\u00e8r\u00e9n de d\u00e0od\u00e9 xi\u016by\u01ceng sh\u00ec sh\u00e8hu\u00ec h\u00e9xi\u00e9 w\u011bnd\u00ecng de j\u012bch\u01d4.", vi: "Nho giáo nhấn mạnh nhân nghĩa lễ trí tín, cho rằng tu dưỡng đạo đức cá nhân là nền tảng của sự hòa thuận và ổn định xã hội." },
+          { zh: "\u5c3d\u7ba1\u751f\u6d3b\u65b9\u5f0f\u53d1\u751f\u4e86\u5de8\u5927\u53d8\u5316\uff0c\u5112\u5bb6\u4ef7\u5024\u89c2\u4ecd\u7136\u6df1\u8fdc\u5f71\u54cd\u7740\u4e2d\u56fd\u4eba\u7684\u601d\u7ef4\u65b9\u5f0f\u3002", py: "J\u01d0ngu\u01cen sh\u0113nghu\u00f3 f\u0101ngsh\u00ec f\u0101sh\u0113ng le j\u00f9d\u00e0 bi\u00e0nhu\u00e0, R\u00faji\u0101 ji\u00e0zh\u00edgu\u0101n r\u00e9ngr\u00e1n sh\u0113ny\u01ceen y\u01d0ngxi\u01ceng zhe Zh\u014fnggu\u00f3r\u00e9n de s\u012bw\u00e9i f\u0101ngsh\u00ec.", vi: "Dù lối sống đã thay đổi rất lớn, các giá trị Nho giáo vẫn có ảnh hưởng sâu rộng đến tư duy của người Trung Quốc." },
+          { zh: "\u8bb8\u591a\u4f01\u4e1a\u5bb6\u5c06\u5112\u5bb6\u7406\u5ff5\u878d\u5165\u4f01\u4e1a\u7ba1\u7406\uff0c\u6ce8\u91cd\u5458\u5de5\u57f9\u517b\u548c\u56e2\u961f\u7cbe\u795e\u3002", py: "X\u01d4du\u014f q\u01d0y\u00e8ji\u0101 ji\u0101ng R\u00faji\u0101 l\u01d0ni\u00e0n r\u00f3ngr\u00f9 q\u01d0y\u00e8 gu\u01cen l\u01d0, zh\u00f9zh\u00f2ng yu\u00e1ng\u014fng p\u00e9iy\u01ceng h\u00e9 tu\u00e1ndu\u00ec j\u012bngsh\u00e9n.", vi: "Nhiều doanh nhân đã tích hợp lý niệm Nho giáo vào quản lý doanh nghiệp, chú trọng bồi dưỡng nhân viên và tinh thần đội nhóm." },
+          { zh: "\u6b64\u5916\uff0c\u968f\u7740\u4e2d\u56fd\u5f3a\u76db\u53d1\u5c55\uff0c\u6c49\u8bed\u5b66\u4e60\u5728\u5168\u7403\u63c8\u8d77\u4e86\u70ed\u6f6e\u3002", py: "C\u01d0w\u00e0i, su\u00edz\u012be Zh\u014fnggu\u00f3 qi\u00e1ngsh\u00e8ng f\u0101zh\u01cen, H\u00e0ny\u01d4 xu\u00e9x\u00ed z\u00e0i qu\u00e1nqi\u00fa xi\u0101nq\u01d0 le r\u00e8ch\u00e1o.", vi: "Ngoài ra, cùng với việc Trung Quốc phát triển mạnh mẽ, việc học tiếng Hán đã dấy lên làn sóng nhiệt tình trên toàn cầu." },
+          { zh: "\u8d8a\u6765\u8d8a\u591a\u7684\u5916\u56fd\u4eba\u901a\u8fc7\u5b66\u4e60\u6c49\u8bed\uff0c\u6df1\u5165\u4e86\u89e3\u4e2d\u56fd\u6587\u5316\u3001\u5386\u53f2\u548c\u54f2\u5b66\u601d\u60f3\u3002", py: "Yu\u00e8l\u00e1iy\u00e8du\u014f de w\u00e0igu\u00f3r\u00e9n t\u014fnggu\u00f2 xu\u00e9x\u00ed H\u00e0ny\u01d4, sh\u0113nr\u00f9 li\u01coji\u011b Zh\u014fnggu\u00f3 w\u00e9nhu\u00e0, l\u00ecsh\u01d0 h\u00e9 zh\u00e9xu\u00e9 s\u012bxi\u01ceng.", vi: "Ngày càng nhiều người nước ngoài học tiếng Hán để hiểu sâu hơn về văn hóa, lịch sử và tư tưởng triết học của Trung Quốc." }
+        ]
+      },
+      { level: 6, title: "Văn hóa đa dạng trong thế giới toàn cầu hóa", subtitle: "\u5168\u7403\u5316\u80cc\u666f\u4e0b\u7684\u6587\u5316\u591a\u6837\u6027",
+        sentences: [
+          { zh: "\u5728\u5168\u7403\u5316\u7684\u80cc\u666f\u4e0b\uff0c\u6587\u5316\u591a\u6837\u6027\u65e2\u662f\u4eba\u7c7b\u6587\u660e\u8fdb\u6b65\u7684\u52a8\u529b\uff0c\u4e5f\u662f\u7ef4\u62a4\u4e16\u754c\u548c\u5e73\u7684\u7ebd\u5e26\u3002", py: "Z\u00e0i qu\u00e1nqi\u00fahua de b\u00e8ij\u01d0ng xi\u00e0, w\u00e9nhu\u00e0 du\u014fy\u00e0ngx\u00ecng j\u00ec sh\u00ec r\u00e9nl\u00e8i w\u00e9nm\u00edng j\u00ecnb\u00f9 de d\u00f2ngl\u00ec, y\u011b sh\u00ec w\u00e9ih\u00f9 sh\u00ecji\u00e8 h\u00e9p\u00edng de ni\u01d4d\u00e0i.", vi: "Trong bối cảnh toàn cầu hóa, đa dạng văn hóa vừa là động lực thúc đẩy tiến bộ văn minh nhân loại, vừa là sợi dây duy trì hòa bình thế giới." },
+          { zh: "\u4e0d\u540c\u6587\u660e\u4e4b\u95f4\u7684\u4ea4\u6d41\u4e0e\u78b0\u649e\uff0c\u50ac\u751f\u4e86\u65e0\u6570\u521b\u65b0\u601d\u60f3\u548c\u827a\u672f\u8868\u8fbe\u5f62\u5f0f\uff0c\u6781\u5927\u5730\u4e30\u5bcc\u4e86\u4eba\u7c7b\u7684\u7cbe\u795e\u4e16\u754c\u3002", py: "B\u00f9t\u00f3ng w\u00e9nm\u00edng zh\u012bji\u0101n de ji\u0101oli\u00fa y\u01d4 p\u00e8ngzhu\u00e0ng, cu\u012bsh\u0113ng le w\u00fas\u01d2u chu\u00e0ngx\u012bn s\u012bxi\u01ceng h\u00e9 y\u00ecsh\u00f9 bi\u01ceod\u00e1 x\u00edngsh\u00ec, j\u00ed d\u00e0 de f\u0113ngf\u00f9 le r\u00e9nl\u00e8i de j\u012bngsh\u00e9n sh\u00ecji\u00e8.", vi: "Sự giao thoa giữa các nền văn minh đã sản sinh vô số tư tưởng sáng tạo và hình thức nghệ thuật, làm phong phú thêm thế giới tinh thần của nhân loại." },
+          { zh: "\u7136\u800c\uff0c\u5f3a\u52bf\u6587\u5316\u7684\u6269\u5f20\u5f80\u5f80\u5bfc\u81f4\u5f31\u52bf\u6587\u5316\u7684\u8fb9\u7f18\u5316\u4e43\u81f3\u6d88\u4ea1\uff0c\u8fd9\u4e00\u73b0\u8c61\u5f15\u53d1\u4e86\u5b66\u754c\u5e7f\u6cdb\u5173\u6ce8\u3002", py: "R\u00e1n'\u00e9r, qi\u01cengsh\u00ec w\u00e9nhu\u00e0 de ku\u00f2zh\u0101ng w\u01cengw\u01ceng d\u01ceozh\u00ec ru\u00f2sh\u00ec w\u00e9nhu\u00e0 de bi\u0101ny\u00fanh\u00f9a n\u01cezh\u00ec xi\u0101ow\u00e1ng, zh\u00e8 y\u012b xi\u00e0nxi\u00e0ng y\u01d0nf\u0101 le xu\u00e9ji\u00e8 gu\u01cengf\u00e0n gu\u0101nzh\u00f9.", vi: "Tuy nhiên, sự bành trướng của văn hóa mạnh thường dẫn đến văn hóa yếu bị gạt ra lề thậm chí tiêu vong, hiện tượng này gây ra sự quan tâm rộng rãi trong giới học thuật." },
+          { zh: "\u5982\u4f55\u5728\u4fdd\u62a4\u672c\u571f\u6587\u5316\u9057\u4ea7\u7684\u540c\u65f6\uff0c\u79ef\u6781\u53c2\u4e0e\u5168\u7403\u6587\u5316\u4ea4\u6d41\uff0c\u6210\u4e3a\u5404\u56fd\u653f\u7b56\u5236\u5b9a\u8005\u9762\u4e34\u7684\u91cd\u8981\u8bfe\u9898\u3002", py: "R\u00fah\u00e9 z\u00e0i b\u01ceoh\u00f9 b\u011bnt\u01d4 w\u00e9nhu\u00e0 y\u00edch\u01cen de t\u00f3ngsh\u00ed, j\u012bj\u00ed c\u0101ny\u00f9 qu\u00e1nqi\u00fa w\u00e9nhu\u00e0 ji\u0101oli\u00fa, ch\u00e9ngw\u00e9i g\u00e8 gu\u00f3 zh\u00e8ngc\u00e8 zh\u00ecd\u00ecngzh\u011b mi\u00e0nl\u00ed de zh\u00f2ngy\u00e0o k\u00e8t\u00ed.", vi: "Làm thế nào vừa bảo vệ di sản văn hóa bản địa, vừa tham gia giao lưu văn hóa toàn cầu, đã trở thành vấn đề quan trọng mà các nhà hoạch định chính sách phải đối mặt." },
+          { zh: "\u4e2d\u56fd\u4f5c\u4e3a\u62e5\u6709\u4e94\u5343\u5e74\u5386\u53f2\u7684\u6587\u660e\u53e4\u56fd\uff0c\u79c9\u6301\u6587\u660e\u4e92\u9274\u7684\u7406\u5ff5\uff0c\u79ef\u6781\u63a8\u52a8\u6784\u5efa\u4eba\u7c7b\u547d\u8fd0\u5171\u540c\u4f53\u3002", py: "Zh\u014fnggu\u00f3 zu\u00f2w\u00e9i y\u01d2uy\u01d2u w\u01d4qi\u0101n ni\u00e1n l\u00ecsh\u01d0 de w\u00e9nm\u00edng g\u01d4gu\u00f3, b\u01d0ngch\u00ed w\u00e9nm\u00edng h\u00f9ji\u00e0n de l\u01d0ni\u00e0n, j\u012bj\u00ed tu\u012bd\u00f2ng g\u00f2iji\u00e0n r\u00e9nl\u00e8i m\u00ecngy\u00f9n g\u00f2ngt\u00f3ngt\u01d0.", vi: "Là đất nước văn minh lâu đời với lịch sử năm nghìn năm, Trung Quốc tích cực thúc đẩy xây dựng cộng đồng chung vận mệnh nhân loại." },
+          { zh: "\u5728\u7ef4\u62a4\u6587\u5316\u4e3b\u6743\u7684\u540c\u65f6\uff0c\u4e2d\u56fd\u4e5f\u654e\u5f00\u5927\u95e8\uff0c\u6b22\u8fce\u4e16\u754c\u4f18\u79c0\u6587\u5316\u8fdb\u5165\uff0c\u5b9e\u73b0\u5171\u540c\u7e41\u8363\u4e0e\u53d1\u5c55\u3002", py: "Z\u00e0i w\u00e9ih\u00f9 w\u00e9nhu\u00e0 zh\u01d4qu\u00e1n de t\u00f3ngsh\u00ed, Zh\u014fnggu\u00f3 y\u011b ch\u01ceng k\u0101i d\u00e0 m\u00e9n, hu\u0101ny\u00edng sh\u00ecji\u00e8 y\u014fux\u00ec\u00f9 w\u00e9nhu\u00e0 j\u00ecnr\u00f9, sh\u00edxi\u00e0n g\u00f2ngt\u00f3ng f\u00e1nr\u00f3ng y\u01d4 f\u0101zh\u01cen.", vi: "Trong khi bảo vệ chủ quyền văn hóa, Trung Quốc cũng mở rộng cửa, chào đón các nền văn hóa xuất sắc của thế giới, cùng nhau phồn thịnh và phát triển." }
+        ]
+      }
+    ];
+
+    let currentReadingLevel = 1;
+
+    function openReadingModal() {
+      document.getElementById('readingModal').classList.add('show');
+      renderReading(currentReadingLevel);
+    }
+
+    function closeReadingModal() {
+      document.getElementById('readingModal').classList.remove('show');
+      if (typeof currentAudio !== 'undefined' && currentAudio) { try { currentAudio.pause(); } catch(e) {} }
+      speechSynthesis.cancel();
+    }
+
+    function renderReading(level) {
+      currentReadingLevel = level;
+      document.querySelectorAll('.reading-tab').forEach(tab => {
+        tab.classList.toggle('active', parseInt(tab.dataset.rlevel) === level);
+      });
+      const passage = READING_PASSAGES.find(p => p.level === level);
+      if (!passage) return;
+      const body = document.getElementById('readingBody');
+      let showPinyin = false;
+      let showVi = false;
+      function renderPassage() {
+        body.innerHTML = [
+          '<div class="reading-title">' + escapeHtml(passage.title) + '</div>',
+          '<div class="reading-subtitle">' + escapeHtml(passage.subtitle) + '</div>',
+          '<div class="reading-controls">',
+          '  <button class="btn-reading-control' + (showPinyin ? ' active' : '') + '" id="togglePinyinBtn">\uD83D\uDD24 ' + (showPinyin ? '\u1EA8n Pinyin' : 'Hi\u1EC7n Pinyin') + '</button>',
+          '  <button class="btn-reading-control' + (showVi ? ' active' : '') + '" id="toggleViBtn">\uD83C\uDDFB\uD83C\uDDF3 ' + (showVi ? '\u1EA8n d\u1ECBch' : 'Hi\u1EC7n d\u1ECBch') + '</button>',
+          '  <button class="btn-reading-control" id="speakAllBtn">\uD83D\uDD0A \u0110\u1ECDc to\u00E0n b\u00E0i</button>',
+          '</div>',
+          '<div class="reading-passage">' +
+            passage.sentences.map(function(s) {
+              return '<div class="reading-sentence"><div style="display:flex;align-items:flex-start;gap:10px;"><div style="flex:1;"><div class="sentence-zh">' + escapeHtml(s.zh) + '</div><div class="sentence-py' + (showPinyin ? ' show' : '') + '">' + escapeHtml(s.py) + '</div><div class="sentence-vi' + (showVi ? ' show' : '') + '">' + escapeHtml(s.vi) + '</div></div><button class="btn-sentence-speak" data-zh="' + encodeURIComponent(s.zh) + '" title="Nghe ph\u00E1t \u00E2m">\uD83D\uDD0A</button></div></div>';
+            }).join('') +
+          '</div>'
+        ].join('');
+        document.getElementById('togglePinyinBtn').onclick = function() { showPinyin = !showPinyin; renderPassage(); };
+        document.getElementById('toggleViBtn').onclick = function() { showVi = !showVi; renderPassage(); };
+        document.getElementById('speakAllBtn').onclick = function() {
+          var allText = passage.sentences.map(function(s) { return s.zh; }).join('\u3002');
+          speakChineseText(allText, document.getElementById('speakAllBtn'));
+        };
+        body.querySelectorAll('.btn-sentence-speak').forEach(function(btn) {
+          btn.onclick = function() { speakChineseText(decodeURIComponent(btn.dataset.zh), btn); };
+        });
+      }
+      renderPassage();
+    }
+
+    // Reading modal events
+    document.getElementById('openReadingBtn').addEventListener('click', openReadingModal);
+    document.getElementById('closeReadingBtn').addEventListener('click', closeReadingModal);
+    document.getElementById('readingModal').addEventListener('click', function(e) {
+      if (e.target.id === 'readingModal') closeReadingModal();
+    });
+    document.getElementById('readingLevelTabs').addEventListener('click', function(e) {
+      var tab = e.target.closest('.reading-tab');
+      if (tab) renderReading(parseInt(tab.dataset.rlevel));
+    });
+
+    // ===== RESTORE LAST LEVEL =====
+    var _savedLevel = localStorage.getItem('hsk_last_level') || '1';
+    setLevel(_savedLevel);
     updateReviewBadge();
   </script>
 
@@ -2869,6 +3330,11 @@
                 window._restoreCustomNotes(data.customNotes);
               }
             }
+            if (data.learnedWords && typeof data.learnedWords === "object") {
+              if (typeof window._restoreLearnedWords === "function") {
+                window._restoreLearnedWords(data.learnedWords);
+              }
+            }
           }
         } catch(e) {
           console.error("Load lỗi:", e);
@@ -2951,6 +3417,19 @@
       saveCustomNotes();
       updateCustomCount();
       if (currentLevel === "custom") setLevel("custom");
+    };
+
+    // Expose learnedWordsMap for Firebase sync
+    Object.defineProperty(window, "_learnedWordsMap", {
+      get() { return learnedWordsMap; },
+      configurable: true
+    });
+    window._restoreLearnedWords = function(obj) {
+      for (const [k, v] of Object.entries(obj)) {
+        learnedWordsMap[k] = new Set(v);
+      }
+      saveLearnedWords();
+      renderLessonSelector(currentLevel);
     };
 
     const _origAddToReview = addToReview;
