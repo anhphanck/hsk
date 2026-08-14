@@ -2476,8 +2476,33 @@
       return zhVoices.find(v => v.lang.toLowerCase().replace('_', '-') === 'zh-cn') || zhVoices[0];
     }
 
+    let mobileAudioUnlocked = false;
+    function unlockMobileAudio() {
+      if (mobileAudioUnlocked) return;
+      mobileAudioUnlocked = true;
+
+      // Unlock HTML5 Audio engine on mobile browsers
+      try {
+        const silentAudio = new Audio("data:audio/wav;base64,UklGRigAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQQAAAAAAA==");
+        silentAudio.play().then(() => {
+          silentAudio.pause();
+        }).catch(() => {});
+      } catch (e) {}
+
+      // Warm up Web Speech API on mobile Safari
+      if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+        try {
+          const emptyUtt = new SpeechSynthesisUtterance("");
+          speechSynthesis.speak(emptyUtt);
+          speechSynthesis.cancel();
+        } catch (e) {}
+      }
+    }
+    document.addEventListener("touchstart", unlockMobileAudio, { passive: true });
+    document.addEventListener("click", unlockMobileAudio, { passive: true });
+
     function loadVoices() {
-      const voices = speechSynthesis.getVoices();
+      const voices = (typeof speechSynthesis !== 'undefined') ? speechSynthesis.getVoices() : [];
       const zhVoices = (voices || []).filter(v => v.lang && v.lang.toLowerCase().replace('_', '-').startsWith('zh'));
       const displayVoices = zhVoices.length > 0 ? zhVoices : (voices || []);
 
@@ -2485,10 +2510,16 @@
       if (select) {
         select.innerHTML = "";
 
-        // Default top option: Google Translate natural TTS
+        // Default top option: Youdao TTS (best mobile compatibility)
+        const yOpt = document.createElement("option");
+        yOpt.value = "youdao";
+        yOpt.textContent = "🔊 Youdao (Chuẩn nhất - Điện thoại & PC)";
+        select.appendChild(yOpt);
+
+        // Google Translate TTS
         const gOpt = document.createElement("option");
         gOpt.value = "google";
-        gOpt.textContent = "🔊 Google Dịch (Chuẩn nhất)";
+        gOpt.textContent = "🔊 Google Dịch";
         select.appendChild(gOpt);
 
         displayVoices.forEach(v => {
@@ -2499,16 +2530,16 @@
           select.appendChild(opt);
         });
 
-        const savedVoiceName = localStorage.getItem("hsk_voice") || "google";
+        const savedVoiceName = localStorage.getItem("hsk_voice") || "youdao";
         select.value = savedVoiceName;
-        if (savedVoiceName !== "google") {
+        if (savedVoiceName !== "youdao" && savedVoiceName !== "google") {
           ttsVoice = (voices || []).find(v => v.name === savedVoiceName) || null;
         }
       }
       ttsReady = true;
     }
 
-    if (speechSynthesis.onvoiceschanged !== undefined) {
+    if (typeof speechSynthesis !== 'undefined' && speechSynthesis.onvoiceschanged !== undefined) {
       speechSynthesis.onvoiceschanged = loadVoices;
     }
     loadVoices();
@@ -2518,9 +2549,9 @@
       voiceSelectEl.addEventListener("change", () => {
         const val = voiceSelectEl.value;
         localStorage.setItem("hsk_voice", val);
-        if (val !== "google") {
-          const voices = speechSynthesis.getVoices();
-          ttsVoice = voices.find(v => v.name === val) || null;
+        if (val !== "youdao" && val !== "google") {
+          const voices = (typeof speechSynthesis !== 'undefined') ? speechSynthesis.getVoices() : [];
+          ttsVoice = (voices || []).find(v => v.name === val) || null;
         }
         speakWord("你好");
       });
@@ -2535,15 +2566,37 @@
       return clean || text.trim();
     }
 
+    function playAudioUrl(url, onErrorCallback, onEndCallback) {
+      if (currentAudio) {
+        try { currentAudio.pause(); currentAudio.currentTime = 0; } catch (e) {}
+        currentAudio = null;
+      }
+      currentAudio = new Audio(url);
+      currentAudio.onended = onEndCallback;
+      let handled = false;
+      const handleError = () => {
+        if (handled) return;
+        handled = true;
+        if (onErrorCallback) onErrorCallback();
+      };
+      currentAudio.onerror = handleError;
+      const playPromise = currentAudio.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(handleError);
+      }
+    }
+
     function speakChineseText(text, btnEl) {
+      unlockMobileAudio();
       const cleanText = getCleanTTSWord(text);
       if (!cleanText) return;
 
       if (currentAudio) {
-        currentAudio.pause();
-        currentAudio.currentTime = 0;
+        try { currentAudio.pause(); currentAudio.currentTime = 0; } catch (e) {}
       }
-      speechSynthesis.cancel();
+      if (typeof speechSynthesis !== 'undefined') {
+        try { speechSynthesis.cancel(); } catch (e) {}
+      }
 
       if (btnEl) btnEl.classList.add('speaking');
 
@@ -2551,30 +2604,42 @@
         if (btnEl) btnEl.classList.remove('speaking');
       };
 
-      const selectedVoice = voiceSelectEl ? voiceSelectEl.value : 'google';
+      const selectedVoice = voiceSelectEl ? voiceSelectEl.value : 'youdao';
 
-      if (selectedVoice === 'google' || !selectedVoice) {
-        const googleUrl = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(cleanText)}&tl=zh-CN&client=tw-ob`;
-        currentAudio = new Audio(googleUrl);
-        currentAudio.onended = stopBtnAnimation;
-        // Use a flag to prevent both onerror and playPromise.catch from firing simultaneously
-        let _fallbackCalled = false;
-        const _ttsGoogleFallback = () => {
-          if (_fallbackCalled) return;
-          _fallbackCalled = true;
-          speakWithWebSpeech(cleanText, stopBtnAnimation);
-        };
-        currentAudio.onerror = _ttsGoogleFallback;
-        const playPromise = currentAudio.play();
-        if (playPromise !== undefined) {
-          playPromise.catch(_ttsGoogleFallback);
-        }
+      if (selectedVoice === 'google') {
+        playAudioUrl(
+          `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(cleanText)}&tl=zh-CN&client=tw-ob`,
+          () => {
+            playAudioUrl(
+              `https://dict.youdao.com/dictvoice?audio=${encodeURIComponent(cleanText)}&le=zh`,
+              () => speakWithWebSpeech(cleanText, stopBtnAnimation),
+              stopBtnAnimation
+            );
+          },
+          stopBtnAnimation
+        );
+      } else if (selectedVoice === 'youdao' || !selectedVoice) {
+        playAudioUrl(
+          `https://dict.youdao.com/dictvoice?audio=${encodeURIComponent(cleanText)}&le=zh`,
+          () => {
+            playAudioUrl(
+              `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(cleanText)}&tl=zh-CN&client=tw-ob`,
+              () => speakWithWebSpeech(cleanText, stopBtnAnimation),
+              stopBtnAnimation
+            );
+          },
+          stopBtnAnimation
+        );
       } else {
         speakWithWebSpeech(cleanText, stopBtnAnimation);
       }
     }
 
     function speakWithWebSpeech(cleanText, onEndCallback) {
+      if (typeof speechSynthesis === 'undefined') {
+        if (onEndCallback) onEndCallback();
+        return;
+      }
       const utt = new SpeechSynthesisUtterance(cleanText);
       utt.lang = 'zh-CN';
       utt.rate = 0.85;
@@ -2582,7 +2647,11 @@
       if (ttsVoice) utt.voice = ttsVoice;
       utt.onend = onEndCallback;
       utt.onerror = onEndCallback;
-      speechSynthesis.speak(utt);
+      try {
+        speechSynthesis.speak(utt);
+      } catch (e) {
+        if (onEndCallback) onEndCallback();
+      }
     }
 
     function speakWord(text) {
